@@ -7,7 +7,6 @@ typedef unsigned char undefined;
 
 typedef unsigned long long GUID;
 typedef unsigned int ImageBaseOffset32;
-typedef unsigned char bool;
 typedef unsigned char byte;
 typedef unsigned int dword;
 typedef long long longlong;
@@ -981,7 +980,6 @@ typedef ulonglong size_t;
 // WARNING: Globals starting with '_' overlap smaller symbols at the same address
 
 int FUN_180001030(void)
-
 {
     _onexit_t p_Var1;
 
@@ -4543,29 +4541,6 @@ void FUN_1800071e4(undefined8 param_1, int param_2, undefined8 param_3, undefine
     return;
 }
 
-void FUN_180007244(void)
-
-{
-    bool bVar1;
-    undefined7 extraout_var;
-    undefined8 uVar2;
-
-    bVar1 = __scrt_is_ucrt_dll_in_use();
-    if ((int)CONCAT71(extraout_var, bVar1) != 0)
-    {
-        // WARNING: Could not recover jumptable at 0x000180007f04. Too many branches
-        // WARNING: Treating indirect jump as call
-        _execute_onexit_table(&DAT_18000d7d8);
-        return;
-    }
-    uVar2 = FUN_180007f34();
-    if ((int)uVar2 == 0)
-    {
-        _cexit();
-    }
-    return;
-}
-
 // Library Function - Single Match
 //  __scrt_dllmain_uninitialize_critical
 //
@@ -4751,7 +4726,6 @@ undefined __scrt_uninitialize_crt(undefined8 param_1, char param_2)
 // Libraries: Visual Studio 2015 Release, Visual Studio 2017 Release
 
 _onexit_t _onexit(_onexit_t _Func)
-
 {
     int iVar1;
     byte bVar2;
@@ -4793,7 +4767,6 @@ undefined8 *FUN_180007508(undefined8 *param_1, ulonglong param_2)
 }
 
 void *operator_new(__uint64 param_1)
-
 {
     code *pcVar1;
     int iVar2;
@@ -5082,167 +5055,10 @@ char *FUN_180007a3c(longlong param_1)
     return pcVar1;
 }
 
-// WARNING: Removing unreachable block (ram,0x000180007b1e)
-// WARNING: Removing unreachable block (ram,0x000180007a9c)
-// WARNING: Removing unreachable block (ram,0x000180007a77)
-// WARNING: Globals starting with '_' overlap smaller symbols at the same address
-// Library Function - Single Match
-//  __isa_available_init
-//
-// Library: Visual Studio 2017 Release
-
-undefined8 __isa_available_init(void)
-
-{
-    int *piVar1;
-    uint *puVar2;
-    longlong lVar3;
-    uint uVar4;
-    uint uVar5;
-    uint uVar6;
-    byte in_XCR0;
-
-    DAT_18000d01c = 2;
-    _DAT_18000d018 = 1;
-    piVar1 = (int *)cpuid_basic_info(0);
-    uVar6 = 0;
-    puVar2 = (uint *)cpuid_Version_info(1);
-    uVar4 = puVar2[3];
-    if ((piVar1[1] ^ 0x756e6547U | piVar1[3] ^ 0x6c65746eU | piVar1[2] ^ 0x49656e69U) == 0)
-    {
-        _DAT_18000d020 = 0xffffffffffffffff;
-        uVar5 = *puVar2 & 0xfff3ff0;
-        if ((((uVar5 == 0x106c0) || (uVar5 == 0x20660)) || (uVar5 == 0x20670)) ||
-            ((uVar5 - 0x30650 < 0x21 &&
-              ((0x100010001U >> ((ulonglong)(uVar5 - 0x30650) & 0x3f) & 1) != 0))))
-        {
-            DAT_18000d80c = DAT_18000d80c | 1;
-        }
-    }
-    if (6 < *piVar1)
-    {
-        lVar3 = cpuid_Extended_Feature_Enumeration_info(7);
-        uVar6 = *(uint *)(lVar3 + 4);
-        if ((uVar6 >> 9 & 1) != 0)
-        {
-            DAT_18000d80c = DAT_18000d80c | 2;
-        }
-    }
-    if ((uVar4 >> 0x14 & 1) != 0)
-    {
-        _DAT_18000d018 = 2;
-        DAT_18000d01c = 6;
-        if ((((uVar4 >> 0x1b & 1) != 0) && ((uVar4 >> 0x1c & 1) != 0)) && ((in_XCR0 & 6) == 6))
-        {
-            DAT_18000d01c = 0xe;
-            _DAT_18000d018 = 3;
-            if ((uVar6 & 0x20) != 0)
-            {
-                _DAT_18000d018 = 5;
-                DAT_18000d01c = 0x2e;
-            }
-        }
-    }
-    return 0;
-}
-
 undefined8 FUN_180007bcc(void)
 
 {
     return 1;
-}
-
-// WARNING: Globals starting with '_' overlap smaller symbols at the same address
-// Library Function - Single Match
-//  __scrt_is_ucrt_dll_in_use
-//
-// Library: Visual Studio 2017 Release
-
-bool __scrt_is_ucrt_dll_in_use(void)
-
-{
-    return _DAT_18000d030 != 0;
-}
-
-// WARNING: Globals starting with '_' overlap smaller symbols at the same address
-
-void FUN_180007be0(void)
-
-{
-    _DAT_18000d810 = 0;
-    return;
-}
-
-// Library Function - Single Match
-//  __scrt_fastfail
-//
-// Library: Visual Studio 2017 Release
-
-void __scrt_fastfail(undefined4 param_1)
-
-{
-    code *pcVar1;
-    BOOL BVar2;
-    LONG LVar3;
-    PRUNTIME_FUNCTION FunctionEntry;
-    undefined *puVar4;
-    undefined8 in_stack_00000000;
-    DWORD64 local_res10;
-    undefined local_res18[8];
-    undefined local_res20[8];
-    undefined auStack1480[8];
-    undefined auStack1472[232];
-    undefined local_4d8[152];
-    undefined *local_440;
-    DWORD64 local_3e0;
-
-    puVar4 = auStack1480;
-    BVar2 = IsProcessorFeaturePresent(0x17);
-    if (BVar2 != 0)
-    {
-        pcVar1 = (code *)swi(0x29);
-        (*pcVar1)(param_1);
-        puVar4 = auStack1472;
-    }
-    *(undefined8 *)(puVar4 + -8) = 0x180007c1b;
-    FUN_180007be0();
-    *(undefined8 *)(puVar4 + -8) = 0x180007c2c;
-    memset(local_4d8, 0, 0x4d0);
-    *(undefined8 *)(puVar4 + -8) = 0x180007c36;
-    RtlCaptureContext(local_4d8);
-    *(undefined8 *)(puVar4 + -8) = 0x180007c50;
-    FunctionEntry = RtlLookupFunctionEntry(local_3e0, &local_res10, (PUNWIND_HISTORY_TABLE)0x0);
-    if (FunctionEntry != (PRUNTIME_FUNCTION)0x0)
-    {
-        *(undefined8 *)(puVar4 + 0x38) = 0;
-        *(undefined **)(puVar4 + 0x30) = local_res18;
-        *(undefined **)(puVar4 + 0x28) = local_res20;
-        *(undefined **)(puVar4 + 0x20) = local_4d8;
-        *(undefined8 *)(puVar4 + -8) = 0x180007c91;
-        RtlVirtualUnwind(0, local_res10, local_3e0, FunctionEntry, *(PCONTEXT *)(puVar4 + 0x20),
-                         *(PVOID **)(puVar4 + 0x28), *(PDWORD64 *)(puVar4 + 0x30),
-                         *(PKNONVOLATILE_CONTEXT_POINTERS *)(puVar4 + 0x38));
-    }
-    local_440 = &stack0x00000008;
-    *(undefined8 *)(puVar4 + -8) = 0x180007cc3;
-    memset(puVar4 + 0x50, 0, 0x98);
-    *(undefined8 *)(puVar4 + 0x60) = in_stack_00000000;
-    *(undefined4 *)(puVar4 + 0x50) = 0x40000015;
-    *(undefined4 *)(puVar4 + 0x54) = 1;
-    *(undefined8 *)(puVar4 + -8) = 0x180007ce5;
-    BVar2 = IsDebuggerPresent();
-    *(undefined **)(puVar4 + 0x40) = puVar4 + 0x50;
-    *(undefined **)(puVar4 + 0x48) = local_4d8;
-    *(undefined8 *)(puVar4 + -8) = 0x180007d06;
-    SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)0x0);
-    *(undefined8 *)(puVar4 + -8) = 0x180007d11;
-    LVar3 = UnhandledExceptionFilter((_EXCEPTION_POINTERS *)(puVar4 + 0x40));
-    if ((LVar3 == 0) && (BVar2 != 1))
-    {
-        *(undefined8 *)(puVar4 + -8) = 0x180007d21;
-        FUN_180007be0();
-    }
-    return;
 }
 
 void _guard_check_icall(void)
@@ -5428,17 +5244,6 @@ void _CxxThrowException(void *pExceptionObject, ThrowInfo *pThrowInfo)
     return;
 }
 
-void *memset(void *_Dst, int _Val, size_t _Size)
-
-{
-    void *pvVar1;
-
-    // WARNING: Could not recover jumptable at 0x000180007ece. Too many branches
-    // WARNING: Treating indirect jump as call
-    pvVar1 = memset(_Dst, _Val, _Size);
-    return pvVar1;
-}
-
 int _callnewh(size_t _Size)
 
 {
@@ -5506,15 +5311,6 @@ void _crt_atexit(void)
     return;
 }
 
-void _cexit(void)
-
-{
-    // WARNING: Could not recover jumptable at 0x000180007f10. Too many branches
-    // WARNING: Treating indirect jump as call
-    _cexit();
-    return;
-}
-
 void _initterm(void)
 
 {
@@ -5542,27 +5338,10 @@ void free(void *_Memory)
     return;
 }
 
-BOOL IsProcessorFeaturePresent(DWORD ProcessorFeature)
-
-{
-    BOOL BVar1;
-
-    // WARNING: Could not recover jumptable at 0x000180007f28. Too many branches
-    // WARNING: Treating indirect jump as call
-    BVar1 = IsProcessorFeaturePresent(ProcessorFeature);
-    return BVar1;
-}
-
 undefined FUN_180007f30(void)
 
 {
     return 1;
-}
-
-undefined8 FUN_180007f34(void)
-
-{
-    return 0;
 }
 
 // Library Function - Single Match
